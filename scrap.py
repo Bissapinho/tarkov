@@ -1,4 +1,5 @@
 import requests
+import pandas as pd 
 
 
 items = ["AS VAL 9x39 special assault rifle Default",
@@ -42,7 +43,7 @@ result = run_query()
 print(result)
 
 def parse_result(result):
-    info = {}
+    info = []
     for r in result:
         local_info = {}
         items = r.get("data", {}).get("items", [])
@@ -57,11 +58,17 @@ def parse_result(result):
         #Add info of the iterated item to the locl dict
 
         local_info = {
+    "Name": data["name"],
     "value per squares": value_per_sq,
     "Image": data["imageLink"]
     }
 
-        info[data['name']] = local_info #adding to the global dict the info about the local item
-    return info
+        info.append(local_info) #adding to the global list the info about the local item
+    
+    df = pd.DataFrame(data = info)
+    df = df.sort_values(by=['value per squares'], ascending = False)
+    return df
 
 print(parse_result(result))
+
+
