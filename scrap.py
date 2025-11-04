@@ -1,7 +1,7 @@
 import requests
 import pandas as pd 
 
-
+#temporary list of items, to be updated with the database
 items = ["AS VAL 9x39 special assault rifle Default",
          "ASh-12 12.7x55 assault rifle Default",
          "B&T MP9 9x19 submachine gun Default",
