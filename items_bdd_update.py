@@ -1,5 +1,6 @@
 import json
 import requests
+import os
 
 #Short code to update the database of all tarkov items available
 #Run this file at every patch
@@ -20,6 +21,8 @@ query = """{
 
 response = requests.post('https://api.tarkov.dev/graphql', headers=headers, json={'query': query})
 if response.status_code == 200:
+    if not os.path.exists('./bdd'):
+        os.mkdir('./bdd')    
     with open('bdd/items_db.json', mode='w', encoding='utf-8') as f:
         json.dump(response.json(), f, indent=4)
 else:
