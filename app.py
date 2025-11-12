@@ -2,6 +2,7 @@ from scrap import run_query, parse_result
 import streamlit as st
 import json
 import string
+import pandas as pd
 
 
 st.title('Tarkov Buddy')
@@ -23,12 +24,6 @@ def uniform_item(item):
 
     return uni_item
 
-#to move later to another file
-#add items from teh search bar to a list of items on which the query will be run
-def add_item(item):
-    global items
-    items.append(item)
-    return items
 
 options = []
 for i in data:
@@ -38,13 +33,39 @@ for i in data:
         options.append(i['name'])
 
 
-items = []
-selected_item = st.selectbox('Choose your item', options)
+#User item selection, keep them in session state and clean the Null values
+selected_item = st.selectbox('Choose your item', options, index = None)
+if 'selected_items' not in st.session_state:
+    st.session_state['selected_items'] = []
+
+if selected_item not in st.session_state['selected_items'] and selected_item is not None: 
+    st.session_state['selected_items'].append(selected_item)
+
 st.write('You chose', selected_item)
 
+#dataframe creation with the item with a button remove
+def remove_item(i):
+    del st.session_state['selected_items'][i]
+    pass
+
+items_nb = len(st.session_state['selected_items'])
+col1, col2 = st.columns(2)
+
+with col1:
+    st.header('Item')
+    for _ in range(items_nb):
+        st.session_state['selected_items'][_]
+
+with col2:
+    st.header('Remove')
+    for _ in range(items_nb):
+        st.button('Remove', key = _)
+
+
+st.session_state
 
 #whats next
-#ajouter un bouton en dessous de select box pour l'ajouter a une 'bdd' temporaire pour ensuite comparer tous les items choisis
+#configurer le on_click des boutons et ajuster les largeurs des lignes (alignement)
 #Mieux traiter l'import de la bdd et la foutre en cache streamlit
 #faire la comparaison == MVP fonctionnelle
 #ameliorer la barre de recherche (plus tard)
