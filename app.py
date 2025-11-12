@@ -28,6 +28,8 @@ options = []
 for i in data:
     if uniform_item(item) in uniform_item(i['shortName']): #item_name cleaning
         options.append(i['name'])
+    if uniform_item(item) in uniform_item(i['name']):
+        options.append(i['name'])
 
 selected_item = st.selectbox('Choose your item', options)
 st.write('You chose', selected_item)
