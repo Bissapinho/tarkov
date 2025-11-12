@@ -23,6 +23,12 @@ def uniform_item(item):
 
     return uni_item
 
+#to move later to another file
+#add items from teh search bar to a list of items on which the query will be run
+def add_item(item):
+    global items
+    items.append(item)
+    return items
 
 options = []
 for i in data:
@@ -30,9 +36,9 @@ for i in data:
         options.append(i['name'])
     elif uniform_item(item) in uniform_item(i['name']):
         options.append(i['name'])
-    else:
-        continue
 
+
+items = []
 selected_item = st.selectbox('Choose your item', options)
 st.write('You chose', selected_item)
 
