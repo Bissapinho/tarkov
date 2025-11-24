@@ -1,17 +1,9 @@
 import requests
 import pandas as pd 
 
-#temporary list of items, to be updated with the database
-items = ["AS VAL 9x39 special assault rifle Default",
-         "ASh-12 12.7x55 assault rifle Default",
-         "B&T MP9 9x19 submachine gun Default",
-         "B&T MP9-N 9x19 submachine gun Default",
-         "20x1mm toy gun Default"]
 
+def run_query(items):
 
-def run_query():
-    
-    global items #temporary, use tkinter interface later
     responses = []
     headers = {"Content-Type": "application/json"}
 
@@ -39,8 +31,6 @@ def run_query():
     return responses
 
 
-result = run_query()
-print(result)
 
 def parse_result(result):
     info = []
@@ -69,6 +59,5 @@ def parse_result(result):
     df = df.sort_values(by=['value per squares'], ascending = False)
     return df
 
-print(parse_result(result))
 
 
