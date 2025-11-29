@@ -1,42 +1,76 @@
 Tarkov Buddy
 
-Tarkov item value helper — compare Escape From Tarkov items by profitability, size and price.
+Tarkov Buddy is a lightweight Streamlit web application for inspecting and comparing Escape From Tarkov items based on price, size, and value-per-slot efficiency.
 
 Overview
 
-Tarkov Buddy is a small Streamlit web application that helps Escape From Tarkov players compare items based on their in-game value and inventory footprint.
+Tarkov Buddy provides users with:
 
-The app allows you to:
+A searchable local database of all Tarkov items (extracted from the Tarkov.dev GraphQL API)
 
-search Tarkov items through a local database (dumped from Tarkov.dev GraphQL API),
+An interactive selection interface
 
-select items interactively,
+A persistent selection state using Streamlit
 
-visualize and edit your selection (add/remove),
+Planned comparison features using live item prices from the API
 
-run a value-per-slot comparison using real in-game 24h average prices,
+This tool is intended for players who want to evaluate what to pick up during raids or analyse stash profitability.
 
-display sortable results in a DataFrame.
+Features
+Current
 
-This tool is ideal for players who want to optimize looting efficiency or calculate stash profitability.
+Full Tarkov item database stored locally in items_db.json
 
-Features 
-✔️ Implemented
+Interactive search bar with string normalization
 
-Local database of all Tarkov items 
+Multi-item selection through Streamlit widgets
 
-Interactive item search with string normalization
+State persistence via st.session_state
 
-Selection of multiple items via Streamlit UI
+Add/remove selected items without resetting the interface
 
-Add/remove items from the list without losing state
+Planned
 
-Compare selected items
+Value-per-slot comparison:
 
-🔜 Coming soon
+Fetching live price data from Tarkov.dev
 
-Cache system for faster DB loading
+Computing value per square (avg24hPrice / total slots)
 
-UI polishing 
+Producing a sorted comparison DataFrame
 
-Abritrage opportunities analyzing anomalies in the marketplace
+Cached database loading for faster UI performance
+
+Improved UI layout and visual elements
+
+Installation
+
+Clone the repository:
+
+git clone https://github.com/yourname/tarkov-buddy.git
+cd tarkov-buddy
+
+
+Create and activate a virtual environment:
+
+python -m venv venv
+source venv/bin/activate     # macOS / Linux
+venv\Scripts\activate        # Windows
+
+
+Install dependencies:
+
+pip install -r requirements.txt
+
+Usage
+Update the item database
+
+(Optional, recommended after Tarkov patches)
+
+python itemsbddupdate.py
+
+Run the Streamlit application
+streamlit run app.py
+
+
+This will open the interface in your browser.
