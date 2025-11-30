@@ -74,16 +74,20 @@ with col2:
             args=(i,)
         )
 
-def get_comparison():
-    if 'selected_items' not in st.session_state:
-        st.session_state['Items to search'] = []
-    for s in st.session_state['selected_items']:
-        st.session_state['Items to search'].append(s)
+if st.button("Compare"):
+
+    items = [item["name"] for item in st.session_state["selected_items"]]
+
+    responses = run_query(items)
+
+    df = parse_result(responses)
+
+    # print result
+    st.dataframe(df)
+
+
+
     
-    responses = run_query(st.session_state['Items to search'])
-
-    pass
 
 
 
-st.session_state
